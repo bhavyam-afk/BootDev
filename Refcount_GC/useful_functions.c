@@ -1,5 +1,6 @@
 #include "objects.h"
 #include <objects.c>
+#include "refcounting.h"
 
 bool set_array(object_tt *obj, size_t index, object_tt *value){
     if (!value || !obj){
@@ -13,8 +14,12 @@ bool set_array(object_tt *obj, size_t index, object_tt *value){
     if ((index > (obj->data.v_array.size - 1))){
         return false;
     }
+    
+    object_tt *old = obj -> data.v_array.elements[index];
+    if(old) refcount_dec(old);
 
     obj -> data.v_array.elements[index] = value;
+    refcount_inc(value);
     return true;
 }
 

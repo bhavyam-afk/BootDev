@@ -1,4 +1,5 @@
 #include "objects.h"
+#include "refcounting.h"
 
 object_tt *new_object(){
     object_tt *ptr = (object_tt *)malloc(sizeof(object_tt));
