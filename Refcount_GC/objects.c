@@ -46,6 +46,11 @@ object_tt *new_vector3(object_tt *x, object_tt *y, object_tt *z){
     if(!ptr) return NULL;
     ptr -> kind = VECTOR3;
     ptr -> data.v_vector3 = (vector_tt){.x = x, .y = y, .z = z};
+
+    refcount_inc(x);
+    refcount_inc(y);
+    refcount_inc(z);
+    return ptr;
 }
 
 object_tt *new_array(size_t size){
